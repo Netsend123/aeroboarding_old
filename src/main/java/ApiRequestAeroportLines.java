@@ -2,14 +2,14 @@ import java.io.*;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
-import java.text.ParseException;
+
 
 
 public class ApiRequestAeroportLines {
 
     public String responseApiAeroLines;
 
-    public void request(String icao) throws IOException, InterruptedException, ParseException, org.json.simple.parser.ParseException {
+    public void request(String icao) {
         String timeRange = new TimeRange().createTimeForApi(icao);
         java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder()
                 .uri(URI.create("https://aerodatabox.p.rapidapi.com/flights/airports/icao/" + icao + "/" + timeRange + "?withLeg=true&withCancelled=true&withCodeshared=true&withCargo=true&withPrivate=true&withLocation=false"))

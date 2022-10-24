@@ -1,18 +1,20 @@
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import io.restassured.path.json.JsonPath;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class JsonParsingFlifgtList {
-    private static final String filePath = "C:\\departures.txt";
+    //private static final String filePath = "C:\\departures.txt";
 
-    public void parse(String jsonAeroLine) throws ParseException, FileNotFoundException {
+    public void parse(String jsonAeroLine) {
         //FileReader reader = new FileReader(filePath);
         JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) jsonParser.parse(jsonAeroLine);
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = (JSONObject) jsonParser.parse(jsonAeroLine);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         int i = 0;
         while (JsonPath.from(String.valueOf(jsonObject)).getString("departures[" + i + "].number") != null) {
